@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define fast_io ios::sync_with_stdio(false); cin.tie(0);
+#define pb push_back
+#define all(v) v.begin(), v.end()
+
+using ll = long long;
+using vi = vector<int>;
+using vll = vector<ll>;
+
+const int MOD = 1e9 + 7;
+
+void solve() {
+	ll n;
+	cin >> n;
+	ll a[n];
+	for (int i = 0; i < n; i++) cin >> a[i];
+	ll hapn = 1;
+	ll dim = 1;
+	ll ans = 0;
+	ll current = 0;
+	for (int i = 0; i < n; i++) {
+		current += a[i];
+		if (current >= hapn) {
+			while (current >= hapn) {
+				if (current == hapn) ans++;
+				dim += 2;
+				hapn = dim * dim;
+			}
+		}
+	}
+	cout << ans << "\n";
+}
+
+int main() {
+	fast_io;
+
+	int t;
+	cin >> t;
+	while (t--) {
+		solve();
+	}
+
+	return 0;
+}
