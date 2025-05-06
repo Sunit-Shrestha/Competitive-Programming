@@ -17,16 +17,45 @@ using vll = vector<ll>;
 const int MOD = 1e9 + 7;
 
 void solve() {
-	ll n, k;
-	cin >> n >> k;
-	if (k % 2 == 0) {
-		for (ll i = 0; i < n - 2; i++) cout << n - 1 << " ";
-		cout << n << " " << n - 1 << "\n"; 
-	}	
-	else {
-		for (ll i = 0; i < n - 1; i++) cout << n << " ";
-		cout << n - 1 << "\n";
+	int n, x;
+	cin >> n >> x;
+	ll sum;
+	bool flag = 0;
+
+	if (x & 1) {
+		sum = n - 1 + (n % 2);
+		flag = (n % 2);
 	}
+	else {
+		sum = n - (n % 2);
+		flag = !(n % 2);
+	}
+
+	ll count = sum;
+	bool rem = 0;
+
+	for (int i = 1; i < 32; i++) {
+		if (x & 1 << i) { 
+			sum += 1 << i; 
+			if (flag) {
+				if (rem and count > 1) sum -= 2, count -= 2;
+				rem = rem ^ 1;
+			}
+			flag = 1;
+		}
+	}
+	if (flag == 0) {
+		if (n > 1) {
+			sum += 4;
+			cout << sum << "\n";
+			return;
+		}
+		else {
+			cout << -1 << "\n";
+			return;
+		}
+	}
+	cout << sum << "\n";
 }
 
 int main() {

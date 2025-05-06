@@ -17,16 +17,9 @@ using vll = vector<ll>;
 const int MOD = 1e9 + 7;
 
 void solve() {
-	ll n, k;
-	cin >> n >> k;
-	if (k % 2 == 0) {
-		for (ll i = 0; i < n - 2; i++) cout << n - 1 << " ";
-		cout << n << " " << n - 1 << "\n"; 
-	}	
-	else {
-		for (ll i = 0; i < n - 1; i++) cout << n << " ";
-		cout << n - 1 << "\n";
-	}
+	ll n;
+	cin >> n;
+	cout << (n * n) / 4 + 1<< "\n";
 }
 
 int main() {
