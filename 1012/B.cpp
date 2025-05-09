@@ -17,32 +17,31 @@ using vll = vector<ll>;
 const int MOD = 1e9 + 7;
 
 void solve() {
-	int n;
-	cin >> n;
-	vector<int> a(n);
-	for (auto& el : a) cin >> el;
-	int mid = n / 2;
-	bool has0l = 0, has0r = 0;
-	for (ll i = 0; i < mid; i++) {
-		if (a[i] == 0) has0l = 1;
+	ll n, m;
+	cin >> n >> m;
+	vector<string> grid(n);
+	for (auto& s : grid) cin >> s;
+	for (ll i = 1; i < n; i++) {
+		for (ll j = 1; j < m; j++) {
+			char c = grid[i][j];
+			if (c == '0') continue;
+			bool f1 = 1;
+			bool f2 = 1;
+			for (ll k = j - 1; k >= 0; k--) {
+				if (f1 == 0) break;
+				if (grid[i][k] == '0') f1 = 0;
+			}
+			for (ll k = i - 1; k >= 0; k--) {
+				if (f2 == 0) break;
+				if (grid[k][j] == '0') f2 = 0;
+			}
+			if (f1 == 0 and f2 == 0) {
+				cout << "NO\n";
+				return;
+			}
+		}
 	}
-	for (ll i = mid; i < n; i++) {
-		if (a[i] == 0) has0r = 1;
-	}
-	ll k = 1;
-	if (has0l) k++;
-	if (has0r) k++;
-	cout << k << "\n";
-	if (has0l) {
-		cout << "1 " << mid << "\n";
-		n = n - mid + 1;
-		mid = 1;
-	}
-	if (has0r) {
-		cout << mid + 1 << " " << n << "\n";
-		n = mid + 1;
-	}
-	cout << "1 " << n << "\n";
+	cout << "YES\n";
 }
 
 int main() {

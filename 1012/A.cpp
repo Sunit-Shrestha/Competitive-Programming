@@ -17,32 +17,16 @@ using vll = vector<ll>;
 const int MOD = 1e9 + 7;
 
 void solve() {
-	int n;
-	cin >> n;
-	vector<int> a(n);
-	for (auto& el : a) cin >> el;
-	int mid = n / 2;
-	bool has0l = 0, has0r = 0;
-	for (ll i = 0; i < mid; i++) {
-		if (a[i] == 0) has0l = 1;
+	ll x, y, a;
+	cin >> x >> y >> a;
+	a = a % (x + y);
+	a = a - x;
+	if (a < 0) {
+		cout << "NO\n";
 	}
-	for (ll i = mid; i < n; i++) {
-		if (a[i] == 0) has0r = 1;
+	else {
+		cout << "YES\n";
 	}
-	ll k = 1;
-	if (has0l) k++;
-	if (has0r) k++;
-	cout << k << "\n";
-	if (has0l) {
-		cout << "1 " << mid << "\n";
-		n = n - mid + 1;
-		mid = 1;
-	}
-	if (has0r) {
-		cout << mid + 1 << " " << n << "\n";
-		n = mid + 1;
-	}
-	cout << "1 " << n << "\n";
 }
 
 int main() {
