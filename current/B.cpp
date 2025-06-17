@@ -17,15 +17,27 @@ using vll = vector<ll>;
 const int MOD = 1e9 + 7;
 
 void solve() {
-	ll n;
-	cin >> n;
-	cout << 2 * n - 2 << "\n";
-	cout << 1 << " " << 2 << " " << n << "\n";
-	for (ll i = 2; i < n; i++) {
-		cout << i << " " << 1 << " " << i << "\n";
-		cout << i << " " << i + 1 << " " << n << "\n";
+	ll w, h, a, b, x1, y1, x2, y2;
+	cin >> w >> h >> a >> b;
+	cin >> x1 >> y1 >> x2 >> y2;
+	if (max(x1, x2) - min(x1, x2) < a) {
+		if ((max(y1, y2) - min(y1, y2)) % b == 0)
+			cout << "YES\n";
+		else
+			cout << "NO\n";
 	}
-	cout << n << " " << 1 << " " << n << "\n";
+	else if (max(y1, y2) - min(y1, y2) < b) {
+		if ((max(x1, x2) - min(x1, x2)) % a == 0)
+			cout << "YES\n";
+		else
+			cout << "NO\n";
+	}
+	else {
+		if ((max(y1, y2) - min(y1, y2)) % b == 0 or (max(x1, x2) - min(x1, x2)) % a == 0)
+			cout << "YES\n";
+		else
+			cout << "NO\n";
+	}
 }
 
 int main() {

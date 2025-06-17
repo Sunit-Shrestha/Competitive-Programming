@@ -17,34 +17,43 @@ using vll = vector<ll>;
 const int MOD = 1e9 + 7;
 
 void solve() {
-	ll n, k;
-	cin >> n >> k;
-	ll a[n];
-	for (ll i = 0; i < n; i++) cin >> a[i];
-	ll ans = 0;
-	for (ll i = 0; i < n; i++) {
-		ll num = a[i];
-		while (num > 0) {
-			if (num % 2 != 0) ans++;
-			num = num >> 1;
+	ll n, m, k;
+	cin >> n >> m >> k;
+	char map[n + 1][m + 1];
+	for (ll i = 1; i <= n; i++)
+		for (ll j = 1; j <= m; j++)
+			cin >> map[i][j];
+
+	ll dp[n + 1][m + 1];
+	memset(dp, 0, sizeof(dp));
+
+	ll totalgold = 0;
+	for (ll i = 1; i <= n; i++) {
+		for (ll j = 1; j <= m; j++) {
+			bool isgold = map[i][j] == 'g';
+			dp[i][j] = dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1] + isgold;
+			totalgold += isgold;	
 		}
 	}
 
-	ll subtracted = 0;
-	for (ll b = 0; b <= 60; b++) {
-		ll sub = ll(1) << b;
-		ll count = 0;
-		for (ll i = 0; i < n; i++) {
-			if (a[i] % 2 == 0) count++;
-			a[i] = a[i] >> 1;
+	ll deletegold[n + 1][m + 1];
+	ll mindel = 1e9;
+	for (ll i = 1; i <= n; i++) {
+		for (ll j = 1; j <= m; j++) {
+			if (map[i][j] != '.') {
+				deletegold[i][j] = 1e9;
+				continue;
+			} 
+			ll r1 = max(ll(0), i - k);
+			ll r2 = min(n, i + k - 1);
+			ll c1 = max(ll(0), j - k);
+			ll c2 = min(m, j + k - 1);
+			deletegold[i][j] = dp[r2][c2] - dp[r1][c2] - dp[r2][c1] + dp[r1][c1];
+			mindel = min(deletegold[i][j], mindel);
 		}
-		ll subc = min(count, k / sub);
-		ans += subc;
-		k -= sub * subc;
-		subtracted += sub * subc;
-		if (subc != count) break;
 	}
-	cout << ans << "\n";
+
+	cout << totalgold - mindel << "\n";
 }
 
 int main() {

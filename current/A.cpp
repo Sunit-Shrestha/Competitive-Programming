@@ -17,20 +17,30 @@ using vll = vector<ll>;
 const int MOD = 1e9 + 7;
 
 void solve() {
-	ll n, k;
-	cin >> n >> k;
-	if (k >= (n + 1) / 2) {
-		for (ll i = 0; i < n - k; i++) cout << "1";
-		for (ll i = 0; i < 2 * k - n; i++) cout << "1";
-		for (ll i = 0; i < n - k; i++) cout << "0";
-		cout << "\n";
+	ll k, a, b, x, y;
+	cin >> k >> a >> b >> x >> y;
+	ll ans = 0;
+	if (x < y) {
+		if (k >= a) {
+			ans += (k - a + x) / x;
+			k -= (k - a + x) / x * x;
+		}
+		if (k >= b) {
+			ans += (k - b + y) / y;
+			k -= (k - b + y) / y * y;
+		}
 	}
 	else {
-		for (ll i = 0; i < k; i++) cout << "1";
-		for (ll i = 0; i < n - 2 * k; i++) cout << "0";
-		for (ll i = 0; i < k; i++) cout << "0";
-		cout << "\n";
+		if (k >= b) {
+			ans += (k - b + y) / y;
+			k -= (k - b + y) / y * y;
+		}
+		if (k >= a) {
+			ans += (k - a + x) / x;
+			k -= (k - a + x) / x * x;
+		}
 	}
+	cout << ans << "\n";
 }
 
 int main() {
