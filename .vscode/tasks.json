@@ -20,7 +20,7 @@
 				"-g",
 				"-march=native",
 				// "-O2", This optimization causes errors while Debugging
-				"-std=c++17",
+				"-std=c++23",
 				"-Wall",
 				"-Wshadow",
 				"-Wno-unused-result",
